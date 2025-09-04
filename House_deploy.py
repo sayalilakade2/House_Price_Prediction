@@ -8,10 +8,11 @@ import pickle
 import numpy as np
 import streamlit as st
 
-# Load the model (must be in same folder as this file)
-with open("finalized_model.sav", "rb") as f:
-    loaded_model = pickle.load(f)
+# ✅ Load model relative to repo folder
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "finalized_model.sav")
 
+with open(MODEL_PATH, "rb") as f:
+    loaded_model = pickle.load(f)
 
 def DecisionTreeRegressor(input_data):
     input_data_asarray = np.asarray(input_data)
@@ -50,6 +51,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
