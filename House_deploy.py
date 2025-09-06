@@ -9,24 +9,23 @@ import pickle
 import numpy as np
 import streamlit as st
 from sklearn.tree import DecisionTreeRegressor
+import joblib
 
 
-# Path to model (relative, not absolute!)
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "finalized_model.sav")
 
-# ✅ Safe model loading
-@st.cache_resource
-def load_model():
-    try:
-        with open(MODEL_PATH, "rb") as f:
-            return pickle.load(f)
-    except FileNotFoundError:
-        st.error("⚠️ Model file not found. Please make sure 'finalized_model.sav' is uploaded to the repo.")
-    except Exception as e:
-        st.error(f"⚠️ Error loading model: {e}")
-    return None
+# Load the model
+#loaded_model = pickle.load(open(r"https://github.com/sayalilakade2/House_deploy-app/raw/main/finalized_model.sav", 'rb'))
+# Load the model
+model_url = "https://github.com/sayalilakade2/House_deploy-app/raw/main/finalized_model.sav"
+r = requests.get(model_url)
 
-loaded_model = load_model()
+if r.status_code == 200:
+    with open('finalized_model.sav', 'wb') as f:
+        f.write(r.content)
+else:
+    print("Failed to download the model file")
+
+model = joblib.load('finalized_model.sav')
     
 def DecisionTreeRegressor(input_data):
     input_data_asarray = np.asarray(input_data)
@@ -65,3 +64,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
