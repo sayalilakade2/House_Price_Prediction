@@ -8,6 +8,8 @@ import os
 import pickle
 import numpy as np
 import streamlit as st
+from sklearn.tree import DecisionTreeRegressor
+
 
 # Path to model (relative, not absolute!)
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "finalized_model.sav")
@@ -52,6 +54,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
