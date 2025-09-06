@@ -14,8 +14,19 @@ from sklearn.tree import DecisionTreeRegressor
 # Path to model (relative, not absolute!)
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "finalized_model.sav")
 
-with open(MODEL_PATH, "rb") as f:
-    loaded_model = pickle.load(f)
+# ✅ Safe model loading
+@st.cache_resource
+def load_model():
+    try:
+        with open(MODEL_PATH, "rb") as f:
+            return pickle.load(f)
+    except FileNotFoundError:
+        st.error("⚠️ Model file not found. Please make sure 'finalized_model.sav' is uploaded to the repo.")
+    except Exception as e:
+        st.error(f"⚠️ Error loading model: {e}")
+    return None
+
+loaded_model = load_model()
     
 def DecisionTreeRegressor(input_data):
     input_data_asarray = np.asarray(input_data)
@@ -54,6 +65,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
