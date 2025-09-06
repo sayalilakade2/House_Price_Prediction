@@ -16,7 +16,7 @@ import joblib
 # Load the model
 #loaded_model = pickle.load(open(r"https://github.com/sayalilakade2/House_deploy-app/raw/main/finalized_model.sav", 'rb'))
 # Load the model
-model_url = "https://github.com/sayalilakade2/House_deploy-app/raw/main/finalized_model.sav"
+model_url = "https://github.com/sayalilakade2/House_Price_Prediction/blob/main/finalized_model.sav"
 r = requests.get(model_url)
 
 if r.status_code == 200:
@@ -64,4 +64,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
